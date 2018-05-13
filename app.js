@@ -13,6 +13,12 @@ global.db = mongoose.connect("mongodb://127.0.0.1:27017/test1");
 
 app.use(session({
     secret:'secret',
+    //------------------解决警告--------resave-------saveUninitialized-------
+    // express-session deprecated undefined resave option; provide resave option
+    // express-session deprecated undefined saveUninitialized option; provide saveUninitialized option
+    resave: false,
+    saveUninitialized: true,
+    //------------------解决警告--------resave-------saveUninitialized-------
     cookie:{
         maxAge:1000*60*30
     }
@@ -49,6 +55,6 @@ app.get('/', function(req, res) {
     res.render('login');
 });
 
-app.listen(3000);
-
-
+let port = 3000;
+app.listen(port);
+console.log('Server starting please access http://127.0.0.1:' + port);

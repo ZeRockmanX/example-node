@@ -1,6 +1,8 @@
 # example-node
 一个简单的电商网站demo，使用了nodejs, express, mongodb, mongoose等功能模块。
 
+git地址：https://github.com/hubwiz/example-node
+
 实现功能：
 
 1. 注册

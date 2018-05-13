@@ -20,7 +20,7 @@ module.exports = function ( app ) {
         }else{
             var Commodity = global.dbHelper.getModel('commodity'),
                 Cart = global.dbHelper.getModel('cart');
-            Cart.findOne({"uId":req.session.user._id, "cId":req.params.id},function(error,doc){
+            Cart.findOne({"uId":req.session.user._id, "cId":req.params.id, "cStatus":false},function(error,doc){
                 //商品已存在 +1
                 if(doc){
                     Cart.update({"uId":req.session.user._id, "cId":req.params.id},{$set : { cQuantity : doc.cQuantity + 1 }},function(error,doc){
@@ -59,10 +59,7 @@ module.exports = function ( app ) {
         //req.params.id 获取商品ID号
         var Cart = global.dbHelper.getModel('cart');
         Cart.remove({"_id":req.params.id},function(error,doc){
-            //成功返回1  失败返回0
-            if(doc > 0){
                 res.redirect('/cart');
-            }
         });
     });
 
@@ -72,7 +69,7 @@ module.exports = function ( app ) {
         Cart.update({"_id":req.body.cid},{$set : { cQuantity : req.body.cnum,cStatus:true }},function(error,doc){
             //更新成功返回1  失败返回0
             if(doc > 0){
-                res.send(200);
+                res.sendStatus(200);
             }
         });
     });
